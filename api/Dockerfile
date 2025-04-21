@@ -7,10 +7,9 @@ ENV PYTHONDONTWRITEBYTECODE=1
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-COPY requirements.txt /tmp
-
-RUN --mount=type=cache,target=/root/.cache \
-    pip install -r /tmp/requirements.txt
+RUN --mount=type=cache,target=/root/.cache/pip \
+    --mount=type=bind,source=requirements.txt,target=requirements.txt \
+    pip install -r requirements.txt
 
 WORKDIR /app
 
